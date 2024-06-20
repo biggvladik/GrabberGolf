@@ -115,5 +115,20 @@ class Data:
         return max_id
 
 
-# data = Data('D:\\database\\Golf_2022.mdb')
-# data.select_id_from_classes('MF')
+    def update_score_players(self,players:list):
+        cursor = self.conn.cursor()
+        columns = [f'Netto{count}' for count in range(1,19)]
+        s = ' = ?, '.join(columns) + ' = ?'
+        sql = """
+                UPDATE Players SET 
+              """ + s + """  WHERE PlayerID_EXT = ?"""
+        for player in players:
+            columns = tuple([player[f'point_{count}'] for count in range(1,19)] + [player['player_id_ext']])
+            cursor.execute(sql,columns)
+        cursor.commit()
+
+
+data = Data('D:\\database\\Golf_2022.mdb')
+from factory import get_stat
+q = get_stat('https://ligastavok.livescoring.ru/pestovo2023/export.txt')
+data.update_score_players(q[1])
