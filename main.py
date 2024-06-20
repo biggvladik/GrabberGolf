@@ -6,6 +6,10 @@ from window import Ui_Football
 from pathlib import Path
 from database import Data
 from stream_prematch import ThreadPrematch
+from factory import get_stat
+from worker import Worker
+
+
 class ImageDialog(QMainWindow):
 
     def __init__(self):
@@ -14,12 +18,14 @@ class ImageDialog(QMainWindow):
 
         # Set up the user interface from Designer.
         self.ui = Ui_Football()
+        self.threadpool = QThreadPool()
         self.ui.setupUi(self)
         self.thread_prematch = ThreadPrematch(self)
         self.ui.pushButton.clicked.connect(self.pick_database)
         self.ui.pushButton_2.clicked.connect(self.launch_thread_prematch)
         self.ui.pushButton_4.clicked.connect(self.clear_database)
         self.ui.pushButton_6.clicked.connect(self.launch_thread2)
+        self.ui.pushButton_4.clicked.connect(self.wrapped_click_set_pars)
         self.set_old_values()
 
     def pick_database(self):
@@ -57,6 +63,35 @@ class ImageDialog(QMainWindow):
     def clear_database(self):
         database = Data(self.ui.lineEdit_3.text())
         database.clear_database()
+
+
+
+    def click_set_pars(self):
+        try:
+            databasa = Data(self.ui.lineEdit_3.text())
+        except:
+            print(traceback.format_exc())
+            return
+        try:
+            res = get_stat(self.ui.lineEdit_4.text())
+            print(res)
+            databasa.set_par_zaezd(res[0])
+        except:
+            self.change_button_status((self.ui.pushButton_4, 'Error', 'Set Pars'))
+
+        self.change_button_status((self.ui.pushButton_4, 'Finish', 'Set Pars'))
+
+    def wrapped_click_set_pars(self):
+
+        self.change_button_status((self.ui.pushButton_4, 'Start', 'Set Pars'))
+        try:
+            worker = Worker(self.click_set_pars)
+            self.threadpool.start(worker)
+        except:
+            print(traceback.format_exc())
+            self.change_button_status((self.ui.pushButton_4, 'Error', 'Set Pars'))
+
+
 
     def launch_thread2(self):
         try:

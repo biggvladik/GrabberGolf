@@ -120,7 +120,7 @@ class Ui_Football(object):
 "")
         self.pushButton_2.setObjectName("pushButton_2")
         self.pushButton_4 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_4.setGeometry(QtCore.QRect(230, 140, 71, 31))
+        self.pushButton_4.setGeometry(QtCore.QRect(230, 140, 81, 31))
         self.pushButton_4.setStyleSheet("QPushButton#pushButton_4 {\n"
 "    border-style: outset;\n"
 "    border-width: 2px;\n"
@@ -166,7 +166,7 @@ class Ui_Football(object):
         self.pushButton.setText(_translate("Football", "Connect"))
         self.pushButton_6.setText(_translate("Football", "Live"))
         self.pushButton_2.setText(_translate("Football", "PreMatch"))
-        self.pushButton_4.setText(_translate("Football", "Clear"))
+        self.pushButton_4.setText(_translate("Football", "Set Pars"))
         self.label_2.setText(_translate("Football", "URL"))
 
 
