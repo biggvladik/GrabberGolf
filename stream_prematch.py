@@ -8,6 +8,7 @@ import pyodbc
 class ThreadPrematch(QThread):
     signal_status = pyqtSignal(tuple)
     signal_box = pyqtSignal(tuple)
+    signal_player = pyqtSignal(list)
     def __init__(self, mainwindow, parent=None):
         QThread.__init__(self, parent)
         self.running = False
@@ -29,7 +30,7 @@ class ThreadPrematch(QThread):
             self.signal_box.emit(('error', 'Ошибка при запросе  к API', error))
             return
 
-
+        self.signal_player.emit(temp_res[1])
         # Вставляем игроков в Players
         try:
             data.insert_player(temp_res[1])

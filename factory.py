@@ -32,8 +32,11 @@ def get_stat(url:str):
 # from database import Data
 # database = Data('D:\\database\\Golf_2022.mdb')
 #
-# q = get_stat('https://ligastavok.livescoring.ru/pestovo2023/export.txt')
-# database.insert_player(q[1])
+q = get_stat('https://ligastavok.livescoring.ru/pestovo2023/export.txt')
+
+for i in q[1]:
+    print(i)
+#database.insert_player(q[1])
 #
 # database.set_par_zaezd(q[0])
 # database.insert_in_zaezdMaps(q[1])

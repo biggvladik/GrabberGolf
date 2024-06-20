@@ -1,23 +1,25 @@
 import sys
 import traceback
 from PyQt5.QtCore import *
-from PyQt5.QtWidgets import QMainWindow, QFileDialog, QApplication, QMessageBox
-from window import Ui_Football
+from PyQt5.QtWidgets import QMainWindow, QFileDialog, QApplication, QMessageBox, QTableWidgetItem
+from window_prodact import UiGolf
 from pathlib import Path
 from database import Data
 from stream_prematch import ThreadPrematch
 from factory import get_stat
 from worker import Worker
 from stream_live import ThreadLive
+from PyQt5.QtGui import QFont, QColor, QPixmap, QImage
+
 
 class ImageDialog(QMainWindow):
 
     def __init__(self):
         super().__init__()
-        self.settings = QSettings('GrabberGymnastic', 'GrabberGymnastic')
+        self.settings = QSettings('GrabberGolf', 'GrabberGolf')
 
         # Set up the user interface from Designer.
-        self.ui = Ui_Football()
+        self.ui = UiGolf()
         self.threadpool = QThreadPool()
         self.ui.setupUi(self)
         self.thread_prematch = ThreadPrematch(self)
@@ -44,10 +46,8 @@ class ImageDialog(QMainWindow):
         if not self.thread_prematch.isRunning():
             self.thread_prematch.signal_box.connect(self.show_message_box)
             self.thread_prematch.signal_status.connect(self.change_button_status)
-
+            self.thread_prematch.signal_player.connect(self.fill_table)
             self.thread_prematch.start()
-
-
 
     def set_old_values(self):
         try:
@@ -111,23 +111,25 @@ class ImageDialog(QMainWindow):
             print(traceback.format_exc())
             self.change_button_status((self.ui.pushButton_4, 'Error', 'Set Pars'))
 
-
-
     def launch_thread_live(self):
         try:
             if self.mythread_2.isRunning():
                 self.mythread_2.terminate()
                 self.mythread_2 = ThreadLive(mainwindow=self)
                 self.mythread_2.signal_status.connect(self.change_button_status)
+                self.mythread_2.signal_player.connect(self.update_table_stat)
+
                 self.mythread_2.start()
 
             else:
                 self.mythread_2 = ThreadLive(mainwindow=self)
                 self.mythread_2.signal_status.connect(self.change_button_status)
+                self.mythread_2.signal_player.connect(self.update_table_stat)
                 self.mythread_2.start()
         except:
             self.mythread_2 = ThreadLive(mainwindow=self)
             self.mythread_2.signal_status.connect(self.change_button_status)
+            self.mythread_2.signal_player.connect(self.update_table_stat)
             self.mythread_2.start()
 
     def change_button_status(self, item: tuple):
@@ -172,6 +174,69 @@ class ImageDialog(QMainWindow):
     def show_message_box(self, item: tuple):
         if item[0] == 'error':
             QMessageBox.warning(self, item[1], f"""<p>{item[2]}</p>""", QMessageBox.StandardButton.Ok)
+
+    def fill_table(self, players: list):
+        for player in players:
+            try:
+                row_count = self.ui.tableWidget_3.rowCount()
+                self.ui.tableWidget_3.setRowCount(row_count + 1)
+
+                self.ui.tableWidget_3.setItem(row_count, 1,
+                                              QTableWidgetItem(player['player_surname'] + ' ' + player['player_name']))
+                self.ui.tableWidget_3.setItem(row_count, 0, QTableWidgetItem(str(player['player_id_ext'])))
+
+                self.ui.tableWidget_3.item(row_count, 0).setTextAlignment(Qt.AlignCenter)
+                font = QFont()
+                font.setWeight(QFont.Bold)
+                self.ui.tableWidget_3.item(row_count, 1).setFont(font)
+
+                for i in range(2, 20):
+                    self.ui.tableWidget_3.setItem(row_count, i, QTableWidgetItem(''))
+            except:
+                print(traceback.format_exc())
+
+    def update_table_stat(self, players: list):
+        try:
+
+            for player in players:
+                for row in range(self.ui.tableWidget_3.rowCount()):
+                    if self.ui.tableWidget_3.item(row, 0).text() == player['player_id_ext']:
+                        for i in range(1, 19):
+                            if self.ui.tableWidget_3.item(row,i+1).text() != player[f'shot_{i}'] + '/' + player[f'point_{i}']:
+                                self.ui.tableWidget_3.setItem(row, i + 1, QTableWidgetItem(
+                                    player[f'shot_{i}'] + '/' + player[f'point_{i}']))
+                                self.ui.tableWidget_3.item(row, i + 1).setTextAlignment(Qt.AlignCenter)
+                                self.change_cell_color(self.ui.tableWidget_3, row, i+1)
+                            else:
+                                self.ui.tableWidget_3.setItem(row, i + 1, QTableWidgetItem(
+                                    player[f'shot_{i}'] + '/' + player[f'point_{i}']))
+                                self.ui.tableWidget_3.item(row, i + 1).setTextAlignment(Qt.AlignCenter)
+
+
+                        break
+        except:
+            print(traceback.format_exc())
+
+    def change_cell_color(self, table, row, column):
+        try:
+            item = table.item(row, column)
+            item.setBackground(QColor('yellow'))
+
+            timer = QTimer()
+            timer.singleShot(10000, lambda: self.reset_cell_color(table, row, column))
+        except:
+            print(traceback.format_exc())
+
+    def reset_cell_color(self, table, row, column):
+        try:
+            item = table.item(row, column)
+            item.setBackground(QColor(187, 255, 216))
+        except:
+            print(traceback.format_exc())
+
+
+
+
 
 
 app = QApplication(sys.argv)
