@@ -151,6 +151,24 @@ class Ui_Football(object):
         self.lineEdit_4.setStyleSheet("border : 2px solid black;")
         self.lineEdit_4.setObjectName("lineEdit_4")
         self.horizontalLayout_2.addWidget(self.lineEdit_4)
+        self.pushButton_5 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_5.setGeometry(QtCore.QRect(730, 10, 81, 31))
+        self.pushButton_5.setStyleSheet("QPushButton#pushButton_5 {\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius: 10px;\n"
+"    border-color: black;\n"
+"    font: bold 14px;\n"
+"    background-color: white;\n"
+"}\n"
+"QPushButton#pushButton_5:hover {\n"
+"  background-color: #e7e7e7;\n"
+"}\n"
+"\n"
+"\n"
+"        \n"
+"")
+        self.pushButton_5.setObjectName("pushButton_5")
         Football.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(Football)
         self.statusbar.setObjectName("statusbar")
@@ -166,8 +184,9 @@ class Ui_Football(object):
         self.pushButton.setText(_translate("Football", "Connect"))
         self.pushButton_6.setText(_translate("Football", "Live"))
         self.pushButton_2.setText(_translate("Football", "PreMatch"))
-        self.pushButton_4.setText(_translate("Football", "Set Pars"))
+        self.pushButton_4.setText(_translate("Football", "Set Par"))
         self.label_2.setText(_translate("Football", "URL"))
+        self.pushButton_5.setText(_translate("Football", "Clear"))
 
 
 if __name__ == "__main__":

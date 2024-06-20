@@ -23,7 +23,7 @@ class ImageDialog(QMainWindow):
         self.thread_prematch = ThreadPrematch(self)
         self.ui.pushButton.clicked.connect(self.pick_database)
         self.ui.pushButton_2.clicked.connect(self.launch_thread_prematch)
-        self.ui.pushButton_4.clicked.connect(self.clear_database)
+        self.ui.pushButton_5.clicked.connect(self.wrapped_clear_database)
         self.ui.pushButton_6.clicked.connect(self.launch_thread_live)
         self.ui.pushButton_4.clicked.connect(self.wrapped_click_set_pars)
         self.set_old_values()
@@ -61,10 +61,30 @@ class ImageDialog(QMainWindow):
         self.settings.setValue('road_database', self.ui.lineEdit_3.text())
 
     def clear_database(self):
-        database = Data(self.ui.lineEdit_3.text())
-        database.clear_database()
+        try:
+            databasa = Data(self.ui.lineEdit_3.text())
+        except:
+            print(traceback.format_exc())
+            self.change_button_status((self.ui.pushButton_5, 'Error', 'БД'))
+            return
+        try:
+            databasa.clear_database()
+        except:
+            self.change_button_status((self.ui.pushButton_5, 'Error', 'Clear'))
+        self.change_button_status((self.ui.pushButton_5, 'Finish', 'Clear'))
 
-
+    def wrapped_clear_database(self):
+        reply = QMessageBox.question(self, 'Подтверждение', 'Вы уверены, что хотите очистить таблицу?',
+                                     QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+        if reply == QMessageBox.No:
+            return
+        self.change_button_status((self.ui.pushButton_5, 'Start', 'Clear'))
+        try:
+            worker = Worker(self.clear_database)
+            self.threadpool.start(worker)
+        except:
+            print(traceback.format_exc())
+            self.change_button_status((self.ui.pushButton_5, 'Error', 'Clear'))
 
     def click_set_pars(self):
         try:

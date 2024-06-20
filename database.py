@@ -76,7 +76,7 @@ class Data:
 
     def clear_database(self):
         cursor = self.conn.cursor()
-        tables = ('ZaezdMaps',)
+        tables = ('ZaezdMaps','Players')
         for table in tables:
             sql = f"""Delete from {table}"""
             cursor.execute(sql)
@@ -128,7 +128,29 @@ class Data:
         cursor.commit()
 
 
-data = Data('D:\\database\\Golf_2022.mdb')
-from factory import get_stat
-q = get_stat('https://ligastavok.livescoring.ru/pestovo2023/export.txt')
-data.update_score_players(q[1])
+
+
+    def select_zaezd_id_by_number(self,number:int):
+        cursor = self.conn.cursor()
+        sql = "SELECT ZaezdID from Zaezd WHERE ZaezdNumber = ?"
+        res = cursor.execute(sql,number).fetchone()[0]
+        cursor.close()
+        return res
+    def update_zaezdmaps_score(self,players:list):
+        cursor = self.conn.cursor()
+        zaezd_keys = {f'zaezd{count}':self.select_zaezd_id_by_number(count) for count in range(1,19)}
+        sql_update_zaezdmaps ="""
+                                 UPDATE ZaezdMaps SET ZaezdPlayerTimeInt = ? , ZaezdPlayerPoints = ?  WHERE ZaezdID = ? AND ZaezdPlayerID = ?
+                              """
+        for player in players:
+            player_id = self.select_player_id_by_ext(player['player_id_ext'])
+            for count in range(1,19):
+                zaezd_id = zaezd_keys[f'zaezd{count}']
+                cursor.execute(sql_update_zaezdmaps,(player[f'shot_{count}'],player[f'point_{count}'],zaezd_id,player_id))
+        cursor.commit()
+        cursor.close()
+
+# data = Data('D:\\database\\Golf_2022.mdb')
+# from factory import get_stat
+# q = get_stat('https://ligastavok.livescoring.ru/pestovo2023/export.txt')
+# data.update_zaezdmaps_score(q[1])

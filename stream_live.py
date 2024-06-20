@@ -14,7 +14,7 @@ class ThreadLive(QThread):
         self.mainwindow = mainwindow
 
     def run(self):
-        self.signal_status.emit(((self.mainwindow.ui.pushButton_2, 'Start', 'Prematch')))
+        self.signal_status.emit((self.mainwindow.ui.pushButton_6, 'Start', 'Live'))
         url = self.mainwindow.ui.lineEdit_4.text()
         try:
             data = Data(self.mainwindow.ui.lineEdit_3.text())
@@ -31,5 +31,18 @@ class ThreadLive(QThread):
                 self.signal_box.emit(('error', 'Ошибка при запросе  к API', error))
                 continue
 
-            # Обновляем
+            # Обновляем стату в Players
+            try:
+                data.update_score_players(temp_res[1])
+            except:
+                self.signal_status.emit((self.mainwindow.ui.pushButton_6, 'Error', 'SP'))
+                print(traceback.format_exc())
 
+            # Обновляем стату в ZaezdMaps
+            try:
+                data.update_zaezdmaps_score(temp_res[1])
+            except:
+                self.signal_status.emit((self.mainwindow.ui.pushButton_6, 'Error', 'ZM'))
+                print(traceback.format_exc())
+
+            self.signal_status.emit((self.mainwindow.ui.pushButton_6, 'Start', 'Live'))

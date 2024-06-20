@@ -236,7 +236,7 @@ QPushButton#pushButton_4:hover {
 </string>
     </property>
     <property name="text">
-     <string>Set Pars</string>
+     <string>Set Par</string>
     </property>
    </widget>
    <widget class="QWidget" name="layoutWidget">
@@ -267,6 +267,36 @@ QPushButton#pushButton_4:hover {
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QPushButton" name="pushButton_5">
+    <property name="geometry">
+     <rect>
+      <x>730</x>
+      <y>10</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton#pushButton_5 {
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: black;
+    font: bold 14px;
+	background-color: white;
+}
+QPushButton#pushButton_5:hover {
+  background-color: #e7e7e7;
+}
+
+
+    	
+</string>
+    </property>
+    <property name="text">
+     <string>Clear</string>
+    </property>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
