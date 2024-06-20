@@ -8,20 +8,21 @@ class Data:
 
     def insert_player(self, players: list):
         sql_insert = """
-                       Insert into Players (PlayerID_EXT,F,I,F_eng,I_eng,PlayerID_EXT_Str)
-                       VALUES (?,?,?,?,?,?)
+                       Insert into Players (PlayerID_EXT,F,I,F_eng,I_eng,PlayerID_EXT_Str,ClassID)
+                       VALUES (?,?,?,?,?,?,?)
                      """
         cursor = self.conn.cursor()
+
         # Проверяем есть ли Игрок в БД
         for player in players:
             check = self.select_player_id_by_ext(player['player_id_ext'])
             if check:
                 continue
-
+            class_id = self.select_id_from_classes(player['player_class'])
             cursor.execute(sql_insert, (
                 player['player_id_ext'], player['player_surname'].upper(), player['player_name'].lower().capitalize(),
                 player['player_surname'].upper(),
-                player['player_name'].lower().capitalize(), player['player_str_ext']))
+                player['player_name'].lower().capitalize(), player['player_str_ext'],class_id))
         cursor.commit()
         cursor.close()
 
@@ -81,3 +82,38 @@ class Data:
             cursor.execute(sql)
 
         self.conn.commit()
+
+    def select_id_from_classes(self, classname: str):
+        cursor = self.conn.cursor()
+
+        sql = """
+                   SELECT ClassID FROM Classes WHERE ClassName_Ext = ?
+                 """
+
+        cursor.execute(sql, classname)
+        res = cursor.fetchone()
+        if res != None:
+            cursor.close()
+            return res[0]
+
+        sql_max_id = """
+                        SELECT MAX(ClassID) FROM Classes
+                     """
+        max_id = cursor.execute(sql_max_id).fetchone()
+        if max_id:
+            max_id= max_id[0]+1
+        else:
+            max_id = 1
+        sql_insert = """
+                        Insert into Classes  (ClassID,ClassName,ClassName_Ext)
+                                   VALUES (?,?,?)
+                     """
+        cursor.execute(sql_insert, (max_id,classname,classname))
+
+        cursor.commit()
+        cursor.close()
+        return max_id
+
+
+# data = Data('D:\\database\\Golf_2022.mdb')
+# data.select_id_from_classes('MF')

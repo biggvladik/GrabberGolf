@@ -8,7 +8,7 @@ from database import Data
 from stream_prematch import ThreadPrematch
 from factory import get_stat
 from worker import Worker
-
+from stream_live import ThreadLive
 
 class ImageDialog(QMainWindow):
 
@@ -24,7 +24,7 @@ class ImageDialog(QMainWindow):
         self.ui.pushButton.clicked.connect(self.pick_database)
         self.ui.pushButton_2.clicked.connect(self.launch_thread_prematch)
         self.ui.pushButton_4.clicked.connect(self.clear_database)
-        self.ui.pushButton_6.clicked.connect(self.launch_thread2)
+        self.ui.pushButton_6.clicked.connect(self.launch_thread_live)
         self.ui.pushButton_4.clicked.connect(self.wrapped_click_set_pars)
         self.set_old_values()
 
@@ -93,20 +93,20 @@ class ImageDialog(QMainWindow):
 
 
 
-    def launch_thread2(self):
+    def launch_thread_live(self):
         try:
             if self.mythread_2.isRunning():
                 self.mythread_2.terminate()
-                self.mythread_2 = Thread_2(mainwindow=self)
+                self.mythread_2 = ThreadLive(mainwindow=self)
                 self.mythread_2.signal_status.connect(self.change_button_status)
                 self.mythread_2.start()
 
             else:
-                self.mythread_2 = Thread_2(mainwindow=self)
+                self.mythread_2 = ThreadLive(mainwindow=self)
                 self.mythread_2.signal_status.connect(self.change_button_status)
                 self.mythread_2.start()
         except:
-            self.mythread_2 = Thread_2(mainwindow=self)
+            self.mythread_2 = ThreadLive(mainwindow=self)
             self.mythread_2.signal_status.connect(self.change_button_status)
             self.mythread_2.start()
 
@@ -152,11 +152,6 @@ class ImageDialog(QMainWindow):
     def show_message_box(self, item: tuple):
         if item[0] == 'error':
             QMessageBox.warning(self, item[1], f"""<p>{item[2]}</p>""", QMessageBox.StandardButton.Ok)
-
-
-    def open_table_window(self):
-        self.new_window = TableWindow(road = self.ui.lineEdit_3.text())
-        self.new_window.show()
 
 
 app = QApplication(sys.argv)

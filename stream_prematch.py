@@ -34,6 +34,7 @@ class ThreadPrematch(QThread):
         try:
             data.insert_player(temp_res[1])
         except Exception as error:
+            print(traceback.format_exc())
             self.signal_box.emit(('error', 'Ошибка при вставке в Players', error))
 
 
