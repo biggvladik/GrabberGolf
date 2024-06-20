@@ -169,6 +169,23 @@ class Ui_Football(object):
 "        \n"
 "")
         self.pushButton_5.setObjectName("pushButton_5")
+        self.pushButton_7 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_7.setGeometry(QtCore.QRect(730, 50, 81, 31))
+        self.pushButton_7.setStyleSheet("QPushButton#pushButton_7 {\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius: 10px;\n"
+"    border-color: black;\n"
+"    font: bold 14px;\n"
+"    background-color: white;\n"
+"}\n"
+"\n"
+"\n"
+"\n"
+"        \n"
+"")
+        self.pushButton_7.setText("")
+        self.pushButton_7.setObjectName("pushButton_7")
         Football.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(Football)
         self.statusbar.setObjectName("statusbar")

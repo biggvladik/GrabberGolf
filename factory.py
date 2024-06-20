@@ -25,6 +25,7 @@ def get_stat(url:str):
             d[f'shot_{count}'] = points[number]
             d[f'point_{count}'] = points[number + 1]
             count += 1
+        d['pts'] = points[-2]
         players.append(d)
     return par,players
 

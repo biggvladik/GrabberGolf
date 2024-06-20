@@ -2,8 +2,7 @@ from PyQt5.QtCore import *
 from database import Data
 from factory import get_stat
 import traceback
-import pyodbc
-
+import time
 
 class ThreadLive(QThread):
     signal_status = pyqtSignal(tuple)
@@ -24,19 +23,21 @@ class ThreadLive(QThread):
 
         self.running = True
         while self.running:
+            start = time.time()
             # Получаем всю инфу
             try:
                 temp_res = get_stat(url)
             except Exception as error:
                 self.signal_box.emit(('error', 'Ошибка при запросе  к API', error))
                 continue
-
+            print('Время запроса',round(time.time() - start,2))
             # Обновляем стату в Players
             try:
                 data.update_score_players(temp_res[1])
             except:
                 self.signal_status.emit((self.mainwindow.ui.pushButton_6, 'Error', 'SP'))
                 print(traceback.format_exc())
+            print('Время Players',round(time.time() - start,2))
 
             # Обновляем стату в ZaezdMaps
             try:
@@ -44,5 +45,6 @@ class ThreadLive(QThread):
             except:
                 self.signal_status.emit((self.mainwindow.ui.pushButton_6, 'Error', 'ZM'))
                 print(traceback.format_exc())
-
+            end = time.time() - start
+            self.signal_status.emit((self.mainwindow.ui.pushButton_7, 'Finish', str(round(end,2))))
             self.signal_status.emit((self.mainwindow.ui.pushButton_6, 'Start', 'Live'))
