@@ -10,7 +10,7 @@ from factory import get_stat
 from worker import Worker
 from stream_live import ThreadLive
 from PyQt5.QtGui import QFont, QColor, QPixmap, QImage
-
+import configparser
 
 class ImageDialog(QMainWindow):
 
@@ -28,19 +28,44 @@ class ImageDialog(QMainWindow):
         self.ui.pushButton_5.clicked.connect(self.wrapped_clear_database)
         self.ui.pushButton_6.clicked.connect(self.launch_thread_live)
         self.ui.pushButton_4.clicked.connect(self.wrapped_click_set_pars)
+        self.ui.lineEdit_4.editingFinished.connect(self.pick_url)
+        self.ui.pushButton_8.clicked.connect(self.stop_thread)
         self.set_old_values()
+
 
     def pick_database(self):
         home_dir = str(Path.home())
         fname = QFileDialog.getOpenFileName(self, 'Выбрать базу данных', home_dir, "*.mdb")
-        temp = fname[0].split('/')
         road_database = fname[0]
         try:
-            databasa = Data(road_database)
+            config = configparser.ConfigParser()
+            config.read('grabber_golf_settings.ini')
+            config.set('DATABASE', 'road', road_database)
+            with open('grabber_golf_settings.ini', 'w') as configfile:
+                config.write(configfile)
         except:
             print(traceback.format_exc())
+            return
         self.ui.lineEdit_3.setText(road_database)
-        self.ui.pushButton.setText(temp[-1])
+
+
+    def stop_thread(self):
+        try:
+            self.mythread_2.running = False
+        except:
+            pass
+
+    def pick_url(self):
+        try:
+            url = self.ui.lineEdit_4.text()
+            config = configparser.ConfigParser()
+            config.read('grabber_golf_settings.ini')
+            config.set('API', 'url', url)
+            with open('grabber_golf_settings.ini', 'w') as configfile:
+                config.write(configfile)
+        except:
+            print(traceback.format_exc())
+            return
 
     def launch_thread_prematch(self):
         if not self.thread_prematch.isRunning():
@@ -51,8 +76,16 @@ class ImageDialog(QMainWindow):
 
     def set_old_values(self):
         try:
-            self.ui.lineEdit_3.setText(self.settings.value('road_database'))
-            self.ui.lineEdit_4.setText(self.settings.value('url'))
+            config = configparser.ConfigParser()
+            config.read('grabber_golf_settings.ini')
+            url = config['API']['url']
+            road_database = config['DATABASE']['road']
+        except:
+            print(traceback.format_exc())
+            return
+        try:
+            self.ui.lineEdit_3.setText(road_database)
+            self.ui.lineEdit_4.setText(url)
         except:
             print(traceback.format_exc())
 

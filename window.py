@@ -58,7 +58,7 @@ class Ui_Football(object):
         self.horizontalLayout_4.addWidget(self.pushButton)
         self.pushButton_6 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_6.setEnabled(True)
-        self.pushButton_6.setGeometry(QtCore.QRect(130, 140, 91, 31))
+        self.pushButton_6.setGeometry(QtCore.QRect(130, 140, 81, 31))
         self.pushButton_6.setStyleSheet("QPushButton#pushButton_6 {\n"
 "    border-style: outset;\n"
 "    border-width: 2px;\n"
@@ -120,7 +120,7 @@ class Ui_Football(object):
 "")
         self.pushButton_2.setObjectName("pushButton_2")
         self.pushButton_4 = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton_4.setGeometry(QtCore.QRect(230, 140, 81, 31))
+        self.pushButton_4.setGeometry(QtCore.QRect(220, 140, 81, 31))
         self.pushButton_4.setStyleSheet("QPushButton#pushButton_4 {\n"
 "    border-style: outset;\n"
 "    border-width: 2px;\n"
@@ -257,6 +257,26 @@ class Ui_Football(object):
         self.checkBox.setGeometry(QtCore.QRect(910, 90, 101, 17))
         self.checkBox.setStyleSheet("font: bold 14px;")
         self.checkBox.setObjectName("checkBox")
+        self.pushButton_8 = QtWidgets.QPushButton(self.centralwidget)
+        self.pushButton_8.setEnabled(True)
+        self.pushButton_8.setGeometry(QtCore.QRect(310, 140, 81, 31))
+        self.pushButton_8.setStyleSheet("QPushButton#pushButton_8 {\n"
+"    border-style: outset;\n"
+"    border-width: 2px;\n"
+"    border-radius: 10px;\n"
+"    border-color: black;\n"
+"    font: bold 14px;\n"
+"    padding: 6px;\n"
+"    background-color: white;\n"
+"}\n"
+"QPushButton#pushButton_8:hover {\n"
+"  background-color: #e7e7e7;\n"
+"}\n"
+"\n"
+"\n"
+"        \n"
+"")
+        self.pushButton_8.setObjectName("pushButton_8")
         Football.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(Football)
         self.statusbar.setObjectName("statusbar")
@@ -316,6 +336,7 @@ class Ui_Football(object):
         item = self.tableWidget_3.horizontalHeaderItem(19)
         item.setText(_translate("Football", "18"))
         self.checkBox.setText(_translate("Football", "ZaezdMaps"))
+        self.pushButton_8.setText(_translate("Football", "Stop"))
 
 
 if __name__ == "__main__":

@@ -51,3 +51,5 @@ class ThreadLive(QThread):
             self.signal_player.emit(temp_res[1])
             self.signal_status.emit((self.mainwindow.ui.pushButton_7, 'Finish', str(round(end,2))))
             self.signal_status.emit((self.mainwindow.ui.pushButton_6, 'Start', 'Live'))
+        self.signal_status.emit((self.mainwindow.ui.pushButton_6, 'Finish', 'Live'))
+

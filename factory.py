@@ -93,9 +93,9 @@ def get_stat_test(q):
 
 
 
-f = open('test.txt',encoding='utf-8')
-q = f.read()
-
-print(get_stat_test(q))
+# f = open('test.txt',encoding='utf-8')
+# q = f.read()
+#
+# print(get_stat_test(q))
 
 

@@ -81,7 +81,7 @@ QPushButton#pushButton:hover {
      <rect>
       <x>130</x>
       <y>140</y>
-      <width>91</width>
+      <width>81</width>
       <height>31</height>
      </rect>
     </property>
@@ -212,7 +212,7 @@ QPushButton#pushButton_2:hover {
    <widget class="QPushButton" name="pushButton_4">
     <property name="geometry">
      <rect>
-      <x>230</x>
+      <x>220</x>
       <y>140</y>
       <width>81</width>
       <height>31</height>
@@ -498,6 +498,40 @@ QHeaderView::section {
     </property>
     <property name="text">
      <string>ZaezdMaps</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="pushButton_8">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>310</x>
+      <y>140</y>
+      <width>81</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton#pushButton_8 {
+    border-style: outset;
+    border-width: 2px;
+    border-radius: 10px;
+    border-color: black;
+    font: bold 14px;
+    padding: 6px;
+	background-color: white;
+}
+QPushButton#pushButton_8:hover {
+  background-color: #e7e7e7;
+}
+
+
+    	
+</string>
+    </property>
+    <property name="text">
+     <string>Stop</string>
     </property>
    </widget>
   </widget>
