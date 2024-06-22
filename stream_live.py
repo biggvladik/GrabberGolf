@@ -41,11 +41,12 @@ class ThreadLive(QThread):
          #   print('Время Players',round(time.time() - start,2))
 
             # Обновляем стату в ZaezdMaps
-            try:
-                data.update_zaezdmaps_score(temp_res[1])
-            except:
-                self.signal_status.emit((self.mainwindow.ui.pushButton_6, 'Error', 'ZM'))
-                print(traceback.format_exc())
+            if self.mainwindow.ui.checkBox.isChecked():
+                try:
+                    data.update_zaezdmaps_score(temp_res[1])
+                except:
+                    self.signal_status.emit((self.mainwindow.ui.pushButton_6, 'Error', 'ZM'))
+                    print(traceback.format_exc())
             end = time.time() - start
             self.signal_player.emit(temp_res[1])
             self.signal_status.emit((self.mainwindow.ui.pushButton_7, 'Finish', str(round(end,2))))

@@ -253,6 +253,10 @@ class Ui_Football(object):
         self.tableWidget_3.verticalHeader().setHighlightSections(True)
         self.tableWidget_3.verticalHeader().setSortIndicatorShown(False)
         self.tableWidget_3.verticalHeader().setStretchLastSection(False)
+        self.checkBox = QtWidgets.QCheckBox(self.centralwidget)
+        self.checkBox.setGeometry(QtCore.QRect(910, 90, 101, 17))
+        self.checkBox.setStyleSheet("font: bold 14px;")
+        self.checkBox.setObjectName("checkBox")
         Football.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(Football)
         self.statusbar.setObjectName("statusbar")
@@ -311,6 +315,7 @@ class Ui_Football(object):
         item.setText(_translate("Football", "17"))
         item = self.tableWidget_3.horizontalHeaderItem(19)
         item.setText(_translate("Football", "18"))
+        self.checkBox.setText(_translate("Football", "ZaezdMaps"))
 
 
 if __name__ == "__main__":

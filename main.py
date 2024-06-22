@@ -97,19 +97,19 @@ class ImageDialog(QMainWindow):
             print(res)
             databasa.set_par_zaezd(res[0])
         except:
-            self.change_button_status((self.ui.pushButton_4, 'Error', 'Set Pars'))
+            self.change_button_status((self.ui.pushButton_4, 'Error', 'Set Par'))
 
-        self.change_button_status((self.ui.pushButton_4, 'Finish', 'Set Pars'))
+        self.change_button_status((self.ui.pushButton_4, 'Finish', 'Set Par'))
 
     def wrapped_click_set_pars(self):
 
-        self.change_button_status((self.ui.pushButton_4, 'Start', 'Set Pars'))
+        self.change_button_status((self.ui.pushButton_4, 'Start', 'Set Par'))
         try:
             worker = Worker(self.click_set_pars)
             self.threadpool.start(worker)
         except:
             print(traceback.format_exc())
-            self.change_button_status((self.ui.pushButton_4, 'Error', 'Set Pars'))
+            self.change_button_status((self.ui.pushButton_4, 'Error', 'Set Par'))
 
     def launch_thread_live(self):
         try:
@@ -118,7 +118,6 @@ class ImageDialog(QMainWindow):
                 self.mythread_2 = ThreadLive(mainwindow=self)
                 self.mythread_2.signal_status.connect(self.change_button_status)
                 self.mythread_2.signal_player.connect(self.update_table_stat)
-
                 self.mythread_2.start()
 
             else:
