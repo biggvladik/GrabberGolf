@@ -126,7 +126,7 @@ class ImageDialog(QMainWindow):
             print(traceback.format_exc())
             return
         try:
-            res = get_stat(self.ui.lineEdit_4.text())
+            res = get_stat(self.ui.lineEdit_4.text() + 'export.txt')
             print(res)
             databasa.set_par_zaezd(res[0])
         except:
