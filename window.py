@@ -385,7 +385,7 @@ class Ui_Football(object):
         self.pushButton_8.setText(_translate("Football", "Stop"))
         self.label_3.setText(_translate("Football", "TimeOut,s"))
         self.lineEdit_5.setText(_translate("Football", "1"))
-        self.comboBox.setItemText(0, _translate("Football", "все"))
+        self.comboBox.setItemText(0, _translate("Football", "all"))
         self.comboBox.setItemText(1, _translate("Football", "10"))
 
 

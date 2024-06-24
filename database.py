@@ -160,6 +160,7 @@ class Data:
                             UPDATE ZaezdMaps SET ZaezdPlayerTimeInt = ?, ZaezdPF = ? WHERE ZaezdID = ? AND ZaezdPlayerID = ?
                          """
             cursor.execute(sql_update, event['point'], event['status'], zaezd_keys[f"zaezd{event['number_hole']}"], player_id)
+            print(f"player_id: {event['player_id_ext']}, лунка: {event['number_hole']},status:{event['status']}")
         cursor.commit()
         cursor.close()
 

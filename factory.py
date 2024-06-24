@@ -34,7 +34,7 @@ def get_stat(url:str):
             continue
     return par,players
 
-def get_stat_log(url:str):
+def get_stat_log(url:str,flag):
     q = requests.get(url, timeout=3).text.split('\n')
     events = []
     for player_item in q:
@@ -49,7 +49,9 @@ def get_stat_log(url:str):
             events.append(d)
         except:
             continue
-    return events
+    if flag == 'all':
+        return events
+    return events[len(events)-10::]
 
 
 

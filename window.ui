@@ -606,7 +606,7 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
     </property>
     <item>
      <property name="text">
-      <string>все</string>
+      <string>all</string>
      </property>
     </item>
     <item>
