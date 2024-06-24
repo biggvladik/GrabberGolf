@@ -277,6 +277,52 @@ class Ui_Football(object):
 "        \n"
 "")
         self.pushButton_8.setObjectName("pushButton_8")
+        self.layoutWidget_2 = QtWidgets.QWidget(self.centralwidget)
+        self.layoutWidget_2.setGeometry(QtCore.QRect(770, 20, 111, 22))
+        self.layoutWidget_2.setObjectName("layoutWidget_2")
+        self.horizontalLayout_3 = QtWidgets.QHBoxLayout(self.layoutWidget_2)
+        self.horizontalLayout_3.setContentsMargins(0, 0, 0, 0)
+        self.horizontalLayout_3.setObjectName("horizontalLayout_3")
+        self.label_3 = QtWidgets.QLabel(self.layoutWidget_2)
+        self.label_3.setStyleSheet("font: bold 14px;")
+        self.label_3.setObjectName("label_3")
+        self.horizontalLayout_3.addWidget(self.label_3)
+        self.lineEdit_5 = QtWidgets.QLineEdit(self.layoutWidget_2)
+        self.lineEdit_5.setStyleSheet("border : 2px solid black;")
+        self.lineEdit_5.setObjectName("lineEdit_5")
+        self.horizontalLayout_3.addWidget(self.lineEdit_5)
+        self.comboBox = QtWidgets.QComboBox(self.centralwidget)
+        self.comboBox.setGeometry(QtCore.QRect(770, 50, 71, 22))
+        self.comboBox.setStyleSheet("QComboBox {\n"
+"    border: 2px solid black;\n"
+"    border-radius: 3px;\n"
+"    padding: 1px 18px 1px 3px;\n"
+"\n"
+"}\n"
+":editable {\n"
+"    background: white;\n"
+"}\n"
+"QComboBox:hover {\n"
+"  background-color: #e7e7e7;\n"
+"}\n"
+"\n"
+"\n"
+"\n"
+"QComboBox:on { /* shift the text when the popup opens */\n"
+"    padding-top: 3px;\n"
+"    padding-left: 4px;\n"
+"}\n"
+"\n"
+"\n"
+"\n"
+"\n"
+"QComboBox::down-arrow:on { /* shift the arrow when popup is open */\n"
+"    top: 1px;\n"
+"    left: 1px;\n"
+"}")
+        self.comboBox.setObjectName("comboBox")
+        self.comboBox.addItem("")
+        self.comboBox.addItem("")
         Football.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(Football)
         self.statusbar.setObjectName("statusbar")
@@ -337,6 +383,10 @@ class Ui_Football(object):
         item.setText(_translate("Football", "18"))
         self.checkBox.setText(_translate("Football", "ZaezdMaps"))
         self.pushButton_8.setText(_translate("Football", "Stop"))
+        self.label_3.setText(_translate("Football", "TimeOut,s"))
+        self.lineEdit_5.setText(_translate("Football", "1"))
+        self.comboBox.setItemText(0, _translate("Football", "все"))
+        self.comboBox.setItemText(1, _translate("Football", "10"))
 
 
 if __name__ == "__main__":

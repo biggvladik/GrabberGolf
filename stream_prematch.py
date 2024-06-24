@@ -16,7 +16,7 @@ class ThreadPrematch(QThread):
 
     def run(self):
         self.signal_status.emit(((self.mainwindow.ui.pushButton_2, 'Start', 'Prematch')))
-        url = self.mainwindow.ui.lineEdit_4.text()
+        url = self.mainwindow.ui.lineEdit_4.text() + 'export.txt'
         try:
             data = Data(self.mainwindow.ui.lineEdit_3.text())
         except Exception as error:
