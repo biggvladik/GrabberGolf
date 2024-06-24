@@ -86,13 +86,32 @@ def get_stat_test(q):
 
 
 
+def get_stat_log(url:str):
+    q = requests.get(url, timeout=3).text.split('\n')
+
+
+
+    events = []
+
+    for player_item in q:
+        d = {}
+        if player_item == '':
+            continue
+        try:
+            d['player_id_ext'] = player_item.split(';')[1]
+            d['number_hole'] = (lambda x: 0 if x == '' else x)(player_item.split(';')[4])
+            d['point'] = (lambda x: 0 if x == '' else x)(player_item.split(';')[5])
+            d['status'] = player_item.split(';')[6]
+            events.append(d)
+        except:
+            continue
+    print(events)
+    return events
 
 
 
 
-
-
-
+get_stat_log('https://ligastavok.livescoring.ru/nakhabino2024/log.txt')
 # f = open('test.txt',encoding='utf-8')
 # q = f.read()
 #

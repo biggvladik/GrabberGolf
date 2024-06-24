@@ -30,7 +30,7 @@ class Data:
         cursor = self.conn.cursor()
 
         sql_update = """
-                    UPDATE Zaezd SET ZaezdYDAR = ? WHERE ZaezdNumber = ?
+                    UPDATE Zaezd SET ZaezdYDAR = ? WHERE ZaezdCountNum = ?
                      """
         for number in range(len(pars)):
             cursor.execute(sql_update, (pars[number], number + 1))
@@ -132,7 +132,7 @@ class Data:
 
     def select_zaezd_id_by_number(self,number:int):
         cursor = self.conn.cursor()
-        sql = "SELECT ZaezdID from Zaezd WHERE ZaezdNumber = ?"
+        sql = "SELECT ZaezdID from Zaezd WHERE ZaezdCountNum = ?"
         res = cursor.execute(sql,number).fetchone()[0]
         cursor.close()
         return res

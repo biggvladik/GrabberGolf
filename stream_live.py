@@ -31,14 +31,14 @@ class ThreadLive(QThread):
             except Exception as error:
                 self.signal_box.emit(('error', 'Ошибка при запросе  к API', error))
                 continue
-        #    print('Время запроса',round(time.time() - start,2))
+            print('Время запроса',round(time.time() - start,2))
             # Обновляем стату в Players
             try:
                 data.update_score_players(temp_res[1])
             except:
                 self.signal_status.emit((self.mainwindow.ui.pushButton_6, 'Error', 'SP'))
                 print(traceback.format_exc())
-         #   print('Время Players',round(time.time() - start,2))
+            print('Время Players',round(time.time() - start,2))
 
             # Обновляем стату в ZaezdMaps
             if self.mainwindow.ui.checkBox.isChecked():
