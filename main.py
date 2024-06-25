@@ -60,12 +60,28 @@ class ImageDialog(QMainWindow):
             url = self.ui.lineEdit_4.text()
             config = configparser.ConfigParser()
             config.read('grabber_golf_settings.ini')
-            config.set('API', 'url', url)
+            config.set('API', 'url_export', url)
             with open('grabber_golf_settings.ini', 'w') as configfile:
                 config.write(configfile)
         except:
             print(traceback.format_exc())
             return
+
+    def pick_url_log(self):
+        try:
+            url = self.ui.lineEdit_6.text()
+            config = configparser.ConfigParser()
+            config.read('grabber_golf_settings.ini')
+            config.set('API', 'url_log', url)
+            with open('grabber_golf_settings.ini', 'w') as configfile:
+                config.write(configfile)
+        except:
+            print(traceback.format_exc())
+            return
+
+
+
+
 
     def launch_thread_prematch(self):
         if not self.thread_prematch.isRunning():
@@ -78,14 +94,18 @@ class ImageDialog(QMainWindow):
         try:
             config = configparser.ConfigParser()
             config.read('grabber_golf_settings.ini')
-            url = config['API']['url']
+            url_export = config['API']['url_export']
+            url_log = config['API']['url_log']
+
             road_database = config['DATABASE']['road']
         except:
             print(traceback.format_exc())
             return
         try:
             self.ui.lineEdit_3.setText(road_database)
-            self.ui.lineEdit_4.setText(url)
+            self.ui.lineEdit_4.setText(url_export)
+            self.ui.lineEdit_6.setText(url_log)
+
         except:
             print(traceback.format_exc())
 
@@ -126,7 +146,7 @@ class ImageDialog(QMainWindow):
             print(traceback.format_exc())
             return
         try:
-            res = get_stat(self.ui.lineEdit_4.text() + 'export.txt')
+            res = get_stat(self.ui.lineEdit_4.text())
             print(res)
             databasa.set_par_zaezd(res[0])
         except:
