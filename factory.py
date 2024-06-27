@@ -35,25 +35,34 @@ def get_stat(url:str):
     return par,players
 
 def get_stat_log(url:str,flag):
-    q = requests.get(url, timeout=3).text.split('\n')
+    q = requests.get(url, timeout=3).text.split('\n')[::-1]
     events = []
+    update_stat = []
     for player_item in q:
         d = {}
         if player_item == '':
             continue
         try:
+
             d['player_id_ext'] = player_item.split(';')[1]
             d['number_hole'] = (lambda x: 0 if x == '' else x)(player_item.split(';')[4])
             d['point'] = (lambda x: 0 if x == '' else x)(player_item.split(';')[5])
             d['status'] = player_item.split(';')[6]
-            events.append(d)
+            if check_update_item(update_stat,d):
+                events.append(d)
+                update_stat.append(d)
         except:
             continue
     if flag == 'all':
         return events
     return events[len(events)-10::]
 
+def check_update_item(data:list,item:dict):
+    for s in data:
+        if s['number_hole'] == item['number_hole'] and s['player_id_ext'] == item['player_id_ext']:
+            return False
 
+    return True
 
 
 
