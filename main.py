@@ -30,6 +30,8 @@ class ImageDialog(QMainWindow):
         self.ui.pushButton_4.clicked.connect(self.wrapped_click_set_pars)
         self.ui.lineEdit_4.editingFinished.connect(self.pick_url)
         self.ui.pushButton_8.clicked.connect(self.stop_thread)
+        self.ui.lineEdit_6.editingFinished.connect(self.pick_url_log)
+
         self.set_old_values()
 
 
