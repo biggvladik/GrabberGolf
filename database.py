@@ -46,14 +46,14 @@ class Data:
                                 SELECT ZaezdID FROM Zaezd
                            """
         sql_insert_zaezdmaps = """
-                                    INSERT INTO ZaezdMaps (ZaezdID,ZaezdPlayerID,ZaezdDate) VALUES (?,?,?)
+                                    INSERT INTO ZaezdMaps (ZaezdID,ZaezdPlayerID,ZaezdDate,ZaezdPlayerPosition) VALUES (?,?,?,?)
                                """
         zaezds = [i[0] for i in cursor.execute(sql_select_zaezd).fetchall()]
         for player in players:
             player_id = self.select_player_id_by_ext(player['player_id_ext'])
             for zaezd in zaezds:
                 try:
-                    cursor.execute(sql_insert_zaezdmaps, (zaezd, player_id, player['player_date']))
+                    cursor.execute(sql_insert_zaezdmaps, (zaezd, player_id, player['player_date'], player['player_number']))
                 except pyodbc.IntegrityError:
                     continue
 

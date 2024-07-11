@@ -9,7 +9,7 @@ def get_stat(url:str):
 
     players = []
 
-    for player_item in q[1::]:
+    for number,player_item in enumerate(q[1::]):
         d = {}
         if player_item == '':
             continue
@@ -20,7 +20,7 @@ def get_stat(url:str):
             d['player_class'] = player_item.split(';')[2]
             d['player_date'] = player_item.split(';')[4]
             d['player_str_ext'] = player_item.split(';')[1]
-
+            d['player_number'] = number+1
             points = player_item.split(';')[5::]
             count = 1
             for number in range(0, len(points) - 4, 2):
@@ -66,4 +66,4 @@ def check_update_item(data:list,item:dict):
 
 
 
-
+#print(get_stat('https://ligastavok.livescoring.ru/nakhabino2024/export.txt'))
