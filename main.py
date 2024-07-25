@@ -256,14 +256,16 @@ class ImageDialog(QMainWindow):
                 for row in range(self.ui.tableWidget_3.rowCount()):
                     if self.ui.tableWidget_3.item(row, 0).text() == player['player_id_ext']:
                         for i in range(1, 19):
-                            if self.ui.tableWidget_3.item(row,i+1).text() != str(player[f'shot_{i}']) + '/' + str(player[f'point_{i}']):
+                            player_str = str(player.get(f'shot_{i}','?')) + '/' + str(player.get(f'point_{i}','0'))
+                            player_str = player_str.replace('?/','')
+                            if self.ui.tableWidget_3.item(row,i+1).text() != player_str:
                                 self.ui.tableWidget_3.setItem(row, i + 1, QTableWidgetItem(
-                                    str(player[f'shot_{i}']) + '/' + str(player[f'point_{i}'])))
+                                    player_str))
                                 self.ui.tableWidget_3.item(row, i + 1).setTextAlignment(Qt.AlignCenter)
                                 self.change_cell_color(self.ui.tableWidget_3, row, i+1)
                             else:
                                 self.ui.tableWidget_3.setItem(row, i + 1, QTableWidgetItem(
-                                    str(player[f'shot_{i}']) + '/' + str(player[f'point_{i}'])))
+                                    player_str))
                                 self.ui.tableWidget_3.item(row, i + 1).setTextAlignment(Qt.AlignCenter)
 
 

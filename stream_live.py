@@ -1,6 +1,6 @@
 from PyQt5.QtCore import *
 from database import Data
-from factory import get_stat, get_stat_log
+from factory import get_stat, get_stat_log,get_stat_gross
 import traceback
 import time
 
@@ -31,10 +31,15 @@ class ThreadLive(QThread):
             start = time.time()
             # Получаем всю инфу
             try:
-                temp_res = get_stat(url_export)
+                if self.mainwindow.ui.radioButton.isChecked():
+                    temp_res = get_stat(url_export)
+                else:
+                    temp_res = get_stat_gross(url_export)
             except Exception as error:
                 self.signal_box.emit(('error', 'Ошибка при запросе  к API', error))
                 continue
+
+
             # Обновляем стату в Players
             try:
                 data.update_score_players(temp_res[1])
@@ -52,10 +57,10 @@ class ThreadLive(QThread):
                     print(traceback.format_exc())
 
             self.signal_player.emit(temp_res[1])
-            try:
-                time.sleep(float(self.mainwindow.ui.lineEdit_5.text()))
-            except:
-                pass
+        try:
+            time.sleep(float(self.mainwindow.ui.lineEdit_5.text()))
+        except:
+            pass
 
             end = time.time() - start
             self.signal_status.emit((self.mainwindow.ui.pushButton_7, 'Finish', str(round(end, 2))))

@@ -1,5 +1,6 @@
 import traceback
 import requests
+from datetime import datetime
 
 def get_stat(url:str):
     q = requests.get(url,timeout=3).text.split('\n')
@@ -63,6 +64,52 @@ def check_update_item(data:list,item:dict):
             return False
 
     return True
+
+
+
+
+
+
+def get_stat_gross(url:str):
+    q = requests.get(url,timeout=3).text.split('\n')
+
+    par_line = q[0].split(';')
+    par = [i for i in par_line[4:len(par_line) - 2] if i != '']
+
+    players = []
+
+    for number,player_item in enumerate(q[1::]):
+        d = {}
+        if player_item == '':
+            continue
+        try:
+            d['player_id_ext'] = player_item.split(';')[0]
+            d['player_name'] = player_item.split(';')[1].split()[1]
+            d['player_surname'] = player_item.split(';')[1].split()[0]
+            d['player_class'] = player_item.split(';')[2]
+            d['player_str_ext'] = player_item.split(';')[1]
+            d['player_number'] = number+1
+            d['player_date'] = datetime.now().strftime('%d.%m.%Y')
+            points = player_item.split(';')[4::]
+            count = 1
+            for number in range(0, len(points) - 2):
+                d[f'point_{count}'] = (lambda x: 0 if x == '' else x)(points[number])
+                count += 1
+            d['pts'] = 0
+            players.append(d)
+        except:
+            print(traceback.format_exc())
+            continue
+    return par,players
+
+
+
+#print(get_stat_gross('https://agr.livescoring.ru/champ32/export.txt'))
+
+
+
+
+
 
 
 

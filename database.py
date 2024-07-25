@@ -15,6 +15,7 @@ class Data:
 
         # Проверяем есть ли Игрок в БД
         for player in players:
+
             check = self.select_player_id_by_ext(player['player_id_ext'])
             if check:
                 continue
@@ -124,6 +125,7 @@ class Data:
         for player in players:
             columns = tuple(
                 [player[f'point_{count}'] for count in range(1, 19)] + [player['pts']] + [player['player_id_ext']])
+            print(columns)
             cursor.execute(sql, columns)
         cursor.commit()
 
