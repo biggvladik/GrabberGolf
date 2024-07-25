@@ -57,10 +57,11 @@ class ThreadLive(QThread):
                     print(traceback.format_exc())
 
             self.signal_player.emit(temp_res[1])
-        try:
-            time.sleep(float(self.mainwindow.ui.lineEdit_5.text()))
-        except:
-            pass
+
+            try:
+                time.sleep(float(self.mainwindow.ui.lineEdit_5.text()))
+            except:
+                pass
 
             end = time.time() - start
             self.signal_status.emit((self.mainwindow.ui.pushButton_7, 'Finish', str(round(end, 2))))

@@ -14,6 +14,7 @@ def get_stat(url:str):
         d = {}
         if player_item == '':
             continue
+        print(player_item)
         try:
             d['player_id_ext'] = player_item.split(';')[0]
             d['player_name'] = player_item.split(';')[1].split()[1]

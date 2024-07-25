@@ -6,7 +6,7 @@ from window_prodact import UiGolf
 from pathlib import Path
 from database import Data
 from stream_prematch import ThreadPrematch
-from factory import get_stat
+from factory import get_stat,get_stat_gross
 from worker import Worker
 from stream_live import ThreadLive
 from PyQt5.QtGui import QFont, QColor, QPixmap, QImage
@@ -148,7 +148,10 @@ class ImageDialog(QMainWindow):
             print(traceback.format_exc())
             return
         try:
-            res = get_stat(self.ui.lineEdit_4.text())
+            if self.ui.radioButton.isChecked():
+                res = get_stat(self.ui.lineEdit_4.text())
+            else:
+                res = get_stat_gross(self.ui.lineEdit_4.text())
             print(res)
             databasa.set_par_zaezd(res[0])
         except:
