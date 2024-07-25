@@ -31,6 +31,8 @@ class ImageDialog(QMainWindow):
         self.ui.lineEdit_4.editingFinished.connect(self.pick_url)
         self.ui.pushButton_8.clicked.connect(self.stop_thread)
         self.ui.lineEdit_6.editingFinished.connect(self.pick_url_log)
+        self.ui.radioButton.clicked.connect(self.pick_gross)
+        self.ui.radioButton_2.clicked.connect(self.pick_gross)
 
         self.set_old_values()
 
@@ -82,7 +84,20 @@ class ImageDialog(QMainWindow):
             return
 
 
-
+    def pick_gross(self):
+        try:
+            if self.ui.radioButton.isChecked():
+                flag = 'False'
+            else:
+                flag = 'True'
+            config = configparser.ConfigParser()
+            config.read('grabber_golf_settings.ini')
+            config.set('API', 'gross', flag)
+            with open('grabber_golf_settings.ini', 'w') as configfile:
+                config.write(configfile)
+        except:
+            print(traceback.format_exc())
+            return
 
 
     def launch_thread_prematch(self):
@@ -98,12 +113,13 @@ class ImageDialog(QMainWindow):
             config.read('grabber_golf_settings.ini')
             url_export = config['API']['url_export']
             url_log = config['API']['url_log']
-
+            gross = (lambda x: self.ui.radioButton if x == 'False' else self.ui.radioButton_2)(config['API']['gross'])
             road_database = config['DATABASE']['road']
         except:
             print(traceback.format_exc())
             return
         try:
+            gross.setChecked(True)
             self.ui.lineEdit_3.setText(road_database)
             self.ui.lineEdit_4.setText(url_export)
             self.ui.lineEdit_6.setText(url_log)
