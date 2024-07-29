@@ -125,7 +125,6 @@ class Data:
         for player in players:
             columns = tuple(
                 [player[f'point_{count}'] for count in range(1, 19)] + [player['pts']] + [player['player_id_ext']])
-            print(columns)
             cursor.execute(sql, columns)
         cursor.commit()
 
@@ -162,7 +161,6 @@ class Data:
                             UPDATE ZaezdMaps SET ZaezdPlayerTimeInt = ?, ZaezdPF = ? WHERE ZaezdID = ? AND ZaezdPlayerID = ?
                          """
             cursor.execute(sql_update, event['point'], event['status'], zaezd_keys[f"zaezd{event['number_hole']}"], player_id)
-            print(f"player_id: {event['player_id_ext']}, лунка: {event['number_hole']},status:{event['status']}")
         cursor.commit()
         cursor.close()
 

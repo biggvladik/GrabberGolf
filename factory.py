@@ -56,7 +56,8 @@ def get_stat_log(url:str,flag):
             continue
     if flag == 'all':
         return events
-    return events[len(events)-10::]
+    print('ДЛИНА ЛОГА,',len(events[len(events)-int(flag)::]))
+    return events[len(events)-int(flag)::]
 
 def check_update_item(data:list,item:dict):
     for s in data:

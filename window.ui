@@ -550,55 +550,6 @@ QPushButton#pushButton_8:hover {
      </item>
     </layout>
    </widget>
-   <widget class="QComboBox" name="comboBox">
-    <property name="geometry">
-     <rect>
-      <x>770</x>
-      <y>50</y>
-      <width>71</width>
-      <height>22</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QComboBox {
-    border: 2px solid black;
-    border-radius: 3px;
-    padding: 1px 18px 1px 3px;
-
-}
-:editable {
-    background: white;
-}
-QComboBox:hover {
-  background-color: #e7e7e7;
-}
-
-
-
-QComboBox:on { /* shift the text when the popup opens */
-    padding-top: 3px;
-    padding-left: 4px;
-}
-
-
-
-
-QComboBox::down-arrow:on { /* shift the arrow when popup is open */
-    top: 1px;
-    left: 1px;
-}</string>
-    </property>
-    <item>
-     <property name="text">
-      <string>all</string>
-     </property>
-    </item>
-    <item>
-     <property name="text">
-      <string>10</string>
-     </property>
-    </item>
-   </widget>
    <widget class="QWidget" name="layoutWidget_3">
     <property name="geometry">
      <rect>
@@ -641,7 +592,7 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>630</x>
@@ -672,6 +623,86 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
        <property name="text">
         <string>Gross</string>
        </property>
+      </widget>
+     </item>
+    </layout>
+   </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>630</x>
+      <y>50</y>
+      <width>145</width>
+      <height>24</height>
+     </rect>
+    </property>
+    <layout class="QHBoxLayout" name="horizontalLayout_6">
+     <item>
+      <widget class="QLabel" name="label">
+       <property name="styleSheet">
+        <string notr="true">font: bold 14px;</string>
+       </property>
+       <property name="text">
+        <string>Log Refresh</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBox">
+       <property name="styleSheet">
+        <string notr="true">QComboBox {
+    border: 2px solid black;
+    border-radius: 3px;
+    padding: 1px 18px 1px 3px;
+
+}
+:editable {
+    background: white;
+}
+QComboBox:hover {
+  background-color: #e7e7e7;
+}
+
+
+
+QComboBox:on { /* shift the text when the popup opens */
+    padding-top: 3px;
+    padding-left: 4px;
+}
+
+
+
+
+QComboBox::down-arrow:on { /* shift the arrow when popup is open */
+    top: 1px;
+    left: 1px;
+}</string>
+       </property>
+       <item>
+        <property name="text">
+         <string>10</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>20</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>30</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>50</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
+         <string>all</string>
+        </property>
+       </item>
       </widget>
      </item>
     </layout>
