@@ -436,11 +436,11 @@ class Ui_Football(object):
         self.radioButton.setText(_translate("Football", "Netto"))
         self.radioButton_2.setText(_translate("Football", "Gross"))
         self.label.setText(_translate("Football", "Log Refresh"))
-        self.comboBox.setItemText(0, _translate("Football", "10"))
-        self.comboBox.setItemText(1, _translate("Football", "20"))
-        self.comboBox.setItemText(2, _translate("Football", "30"))
-        self.comboBox.setItemText(3, _translate("Football", "50"))
-        self.comboBox.setItemText(4, _translate("Football", "all"))
+        self.comboBox.setItemText(0, _translate("Football", "all"))
+        self.comboBox.setItemText(1, _translate("Football", "10"))
+        self.comboBox.setItemText(2, _translate("Football", "20"))
+        self.comboBox.setItemText(3, _translate("Football", "30"))
+        self.comboBox.setItemText(4, _translate("Football", "50"))
         self.checkBox_2.setText(_translate("Football", "Работаем без log"))
 
 

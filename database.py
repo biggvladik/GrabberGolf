@@ -1,5 +1,5 @@
 import pyodbc
-
+from time import sleep
 
 class Data:
     def __init__(self, road):
@@ -54,7 +54,8 @@ class Data:
             player_id = self.select_player_id_by_ext(player['player_id_ext'])
             for zaezd in zaezds:
                 try:
-                    cursor.execute(sql_insert_zaezdmaps, (zaezd, player_id, player['player_date'], player['player_number']))
+                    cursor.execute(sql_insert_zaezdmaps,
+                                   (zaezd, player_id, player['player_date'], player['player_number']))
                 except pyodbc.IntegrityError:
                     continue
 
@@ -124,10 +125,11 @@ class Data:
               """ + s + """  WHERE PlayerID_EXT = ?"""
         for player in players:
             columns = tuple(
-                [player[f'point_{count}'] for count in range(1, 19)] + [player['pts'],player['pts'],player['pts_sum'],player['player_id_ext']])
-            print(columns)
+                [player[f'point_{count}'] for count in range(1, 19)] + [player['pts'], player['pts'], player['pts_sum'],
+                                                                        player['player_id_ext']])
             cursor.execute(sql, columns)
-        cursor.commit()
+            cursor.commit()
+        cursor.close()
 
     def select_zaezd_id_by_number(self, number: int):
         cursor = self.conn.cursor()
@@ -136,20 +138,66 @@ class Data:
         cursor.close()
         return res
 
+    # def update_zaezdmaps_score(self, players: list):
+    #     zaezd_keys = {f'zaezd{count}': self.select_zaezd_id_by_number(count) for count in range(1, 19)}
+    #     sql_update_zaezdmaps = """
+    #                              UPDATE ZaezdMaps SET ZaezdPlayerTimeInt = ? , ZaezdPlayerPoints = ?, ZaezdPF = ?  WHERE ZaezdID = ? AND ZaezdPlayerID = ?
+    #                           """
+    #     cursor = self.conn.cursor()
+    #
+    #     for player in players:
+    #         player_id = self.select_player_id_by_ext(player['player_id_ext'])
+    #         for count in range(1, 19):
+    #             pf = (lambda x: 'F' if x != 0 else 'P')(player[f'shot_{count}'])
+    #             zaezd_id = zaezd_keys[f'zaezd{count}']
+    #             cursor.execute(sql_update_zaezdmaps,
+    #                            (player[f'shot_{count}'], player[f'point_{count}'], pf, zaezd_id, player_id))
+    #             cursor.commit()
+    #
+    #     cursor.close()
+
     def update_zaezdmaps_score(self, players: list):
+
         cursor = self.conn.cursor()
         zaezd_keys = {f'zaezd{count}': self.select_zaezd_id_by_number(count) for count in range(1, 19)}
         sql_update_zaezdmaps = """
-                                 UPDATE ZaezdMaps SET ZaezdPlayerTimeInt = ? , ZaezdPlayerPoints = ?  WHERE ZaezdID = ? AND ZaezdPlayerID = ?
+                                         UPDATE ZaezdMaps SET ZaezdPlayerTimeInt = ? , ZaezdPlayerPoints = ?, ZaezdPF = ?  WHERE ZaezdID = ? AND ZaezdPlayerID = ?
+                                      """
+        for player in players:
+            player_id = self.select_player_id_by_ext(player['player_id_ext'])
+            for count in range(1, 19):
+                pf = (lambda x: 'F' if x != '' else 'P')(player[f'point_{count}'])
+                if player[f'shot_{count}'] == '' or player[f'point_{count}'] == '':
+                    pf = 'P'
+                    player[f'shot_{count}'] = 0
+                    player[f'point_{count}'] = 0
+
+                zaezd_id = zaezd_keys[f'zaezd{count}']
+                cursor.execute(sql_update_zaezdmaps,
+                               (player[f'shot_{count}'], player[f'point_{count}'],pf, zaezd_id, player_id))
+            cursor.commit()
+            sleep(0.05)
+
+        cursor.close()
+
+
+    def update_zaezdmaps_score_gross(self, players: list):
+        cursor = self.conn.cursor()
+        zaezd_keys = {f'zaezd{count}': self.select_zaezd_id_by_number(count) for count in range(1, 19)}
+        sql_update_zaezdmaps = """
+                                 UPDATE ZaezdMaps SET ZaezdPlayerPoints = ?, ZaezdPF = ?  WHERE ZaezdID = ? AND ZaezdPlayerID = ?
                               """
         for player in players:
             player_id = self.select_player_id_by_ext(player['player_id_ext'])
             for count in range(1, 19):
+                pf = (lambda x: 'F' if x != '' else 'P')(player[f'point_{count}'])
                 zaezd_id = zaezd_keys[f'zaezd{count}']
                 cursor.execute(sql_update_zaezdmaps,
-                               (player[f'shot_{count}'], player[f'point_{count}'], zaezd_id, player_id))
-        cursor.commit()
+                               (player[f'point_{count}'], pf, zaezd_id, player_id))
+                cursor.commit()
         cursor.close()
+
+
 
     def update_score_logs(self, events: list):
         cursor = self.conn.cursor()
@@ -161,7 +209,8 @@ class Data:
             sql_update = """
                             UPDATE ZaezdMaps SET ZaezdPlayerTimeInt = ?, ZaezdPF = ? WHERE ZaezdID = ? AND ZaezdPlayerID = ?
                          """
-            cursor.execute(sql_update, event['point'], event['status'], zaezd_keys[f"zaezd{event['number_hole']}"], player_id)
+            cursor.execute(sql_update, event['point'], event['status'], zaezd_keys[f"zaezd{event['number_hole']}"],
+                           player_id)
             cursor.commit()
 
         cursor.close()

@@ -47,11 +47,29 @@ class ThreadLive(QThread):
                 self.signal_status.emit((self.mainwindow.ui.pushButton_6, 'Error', 'SP'))
                 print(traceback.format_exc())
 
+            if self.mainwindow.ui.radioButton.isChecked() and self.mainwindow.ui.checkBox_2.isChecked():
+               print('Работаем без лога Netto')
+               try:
+                    data.update_zaezdmaps_score(temp_res[1])
+               except:
+                self.signal_status.emit((self.mainwindow.ui.pushButton_6, 'Error', 'Netto'))
+                print(traceback.format_exc())
+
+            if self.mainwindow.ui.radioButton_2.isChecked() and self.mainwindow.ui.checkBox_2.isChecked():
+                print('Работаем без лога Gross')
+                try:
+                    data.update_zaezdmaps_score_gross(temp_res[1])
+                except:
+                    self.signal_status.emit((self.mainwindow.ui.pushButton_6, 'Error', 'Gross'))
+                    print(traceback.format_exc())
+
+
             # Обновляем стату в ZaezdMaps
-            if self.mainwindow.ui.checkBox.isChecked():
+            if self.mainwindow.ui.checkBox.isChecked() and not self.mainwindow.ui.checkBox_2.isChecked():
                 data_score = get_stat_log(url_log,self.mainwindow.ui.comboBox.currentText())
                 try:
                     data.update_score_logs(data_score)
+                    print('Работаем с логом')
                 except:
                     self.signal_status.emit((self.mainwindow.ui.pushButton_6, 'Error', 'ZM'))
                     print(traceback.format_exc())

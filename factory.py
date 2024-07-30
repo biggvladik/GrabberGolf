@@ -25,8 +25,8 @@ def get_stat(url:str):
             points = player_item.split(';')[5::]
             count = 1
             for number in range(0, len(points) - 4, 2):
-                d[f'shot_{count}'] = (lambda x: 0 if x == '' else x)(points[number])
-                d[f'point_{count}'] = (lambda x: 0 if x == '' else x)(points[number+1])
+                d[f'shot_{count}'] = points[number]
+                d[f'point_{count}'] = points[number+1]
                 count += 1
             d['pts'] = (lambda x: 0 if x == '' else x)(points[-2])
             d['pts_sum'] = (lambda x: 0 if x == '' else x)(points[-1])
@@ -95,7 +95,7 @@ def get_stat_gross(url:str):
             points = player_item.split(';')[4::]
             count = 1
             for number in range(0, len(points) - 2):
-                d[f'point_{count}'] = (lambda x: 0 if x == '' else x)(points[number])
+                d[f'point_{count}'] = points[number]
                 count += 1
             d['pts'] = (lambda x: 0 if x == '' else x)(points[-2])
             d['pts_sum'] = (lambda x: 0 if x == '' else x)(points[-1])

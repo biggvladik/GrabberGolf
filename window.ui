@@ -680,6 +680,11 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
        </property>
        <item>
         <property name="text">
+         <string>all</string>
+        </property>
+       </item>
+       <item>
+        <property name="text">
          <string>10</string>
         </property>
        </item>
@@ -696,11 +701,6 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
        <item>
         <property name="text">
          <string>50</string>
-        </property>
-       </item>
-       <item>
-        <property name="text">
-         <string>all</string>
         </property>
        </item>
       </widget>
