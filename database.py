@@ -190,11 +190,18 @@ class Data:
         for player in players:
             player_id = self.select_player_id_by_ext(player['player_id_ext'])
             for count in range(1, 19):
-                pf = (lambda x: 'F' if x != '' else 'P')(player[f'point_{count}'])
+                pf = 'F'
+                if player[f'point_{count}'] == '':
+                    pf = 'P'
+                    player[f'point_{count}'] = 0
+
                 zaezd_id = zaezd_keys[f'zaezd{count}']
                 cursor.execute(sql_update_zaezdmaps,
                                (player[f'point_{count}'], pf, zaezd_id, player_id))
-                cursor.commit()
+              #  sleep(0.0001)
+            cursor.commit()
+            sleep(0.08)
+
         cursor.close()
 
 
