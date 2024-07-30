@@ -321,17 +321,17 @@ class Ui_Football(object):
         self.radioButton_2.setStyleSheet("font: bold 14px;")
         self.radioButton_2.setObjectName("radioButton_2")
         self.horizontalLayout.addWidget(self.radioButton_2)
-        self.widget = QtWidgets.QWidget(self.centralwidget)
-        self.widget.setGeometry(QtCore.QRect(630, 50, 145, 24))
-        self.widget.setObjectName("widget")
-        self.horizontalLayout_6 = QtWidgets.QHBoxLayout(self.widget)
+        self.layoutWidget3 = QtWidgets.QWidget(self.centralwidget)
+        self.layoutWidget3.setGeometry(QtCore.QRect(630, 50, 145, 24))
+        self.layoutWidget3.setObjectName("layoutWidget3")
+        self.horizontalLayout_6 = QtWidgets.QHBoxLayout(self.layoutWidget3)
         self.horizontalLayout_6.setContentsMargins(0, 0, 0, 0)
         self.horizontalLayout_6.setObjectName("horizontalLayout_6")
-        self.label = QtWidgets.QLabel(self.widget)
+        self.label = QtWidgets.QLabel(self.layoutWidget3)
         self.label.setStyleSheet("font: bold 14px;")
         self.label.setObjectName("label")
         self.horizontalLayout_6.addWidget(self.label)
-        self.comboBox = QtWidgets.QComboBox(self.widget)
+        self.comboBox = QtWidgets.QComboBox(self.layoutWidget3)
         self.comboBox.setStyleSheet("QComboBox {\n"
 "    border: 2px solid black;\n"
 "    border-radius: 3px;\n"
@@ -366,6 +366,10 @@ class Ui_Football(object):
         self.comboBox.addItem("")
         self.comboBox.addItem("")
         self.horizontalLayout_6.addWidget(self.comboBox)
+        self.checkBox_2 = QtWidgets.QCheckBox(self.centralwidget)
+        self.checkBox_2.setGeometry(QtCore.QRect(490, 130, 151, 17))
+        self.checkBox_2.setStyleSheet("font: bold 14px;")
+        self.checkBox_2.setObjectName("checkBox_2")
         Football.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(Football)
         self.statusbar.setObjectName("statusbar")
@@ -437,6 +441,7 @@ class Ui_Football(object):
         self.comboBox.setItemText(2, _translate("Football", "30"))
         self.comboBox.setItemText(3, _translate("Football", "50"))
         self.comboBox.setItemText(4, _translate("Football", "all"))
+        self.checkBox_2.setText(_translate("Football", "Работаем без log"))
 
 
 if __name__ == "__main__":

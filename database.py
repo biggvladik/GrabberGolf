@@ -118,13 +118,14 @@ class Data:
     def update_score_players(self, players: list):
         cursor = self.conn.cursor()
         columns = [f'Netto{count}' for count in range(1, 19)]
-        s = ' = ?, '.join(columns) + ' = ?' + ', NettoTotal = ? '
+        s = ' = ?, '.join(columns) + ' = ?' + ', NettoTotal = ? ' + ', PTS = ? ' + ', PTSSum = ? '
         sql = """
                 UPDATE Players SET 
               """ + s + """  WHERE PlayerID_EXT = ?"""
         for player in players:
             columns = tuple(
-                [player[f'point_{count}'] for count in range(1, 19)] + [player['pts']] + [player['player_id_ext']])
+                [player[f'point_{count}'] for count in range(1, 19)] + [player['pts'],player['pts'],player['pts_sum'],player['player_id_ext']])
+            print(columns)
             cursor.execute(sql, columns)
         cursor.commit()
 

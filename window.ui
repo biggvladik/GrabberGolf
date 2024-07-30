@@ -627,7 +627,7 @@ QPushButton#pushButton_8:hover {
      </item>
     </layout>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
       <x>630</x>
@@ -706,6 +706,22 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
       </widget>
      </item>
     </layout>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_2">
+    <property name="geometry">
+     <rect>
+      <x>490</x>
+      <y>130</y>
+      <width>151</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: bold 14px;</string>
+    </property>
+    <property name="text">
+     <string>Работаем без log</string>
+    </property>
    </widget>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>

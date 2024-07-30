@@ -29,6 +29,7 @@ def get_stat(url:str):
                 d[f'point_{count}'] = (lambda x: 0 if x == '' else x)(points[number+1])
                 count += 1
             d['pts'] = (lambda x: 0 if x == '' else x)(points[-2])
+            d['pts_sum'] = (lambda x: 0 if x == '' else x)(points[-1])
             players.append(d)
         except:
             print(traceback.format_exc())
@@ -96,7 +97,8 @@ def get_stat_gross(url:str):
             for number in range(0, len(points) - 2):
                 d[f'point_{count}'] = (lambda x: 0 if x == '' else x)(points[number])
                 count += 1
-            d['pts'] = 0
+            d['pts'] = (lambda x: 0 if x == '' else x)(points[-2])
+            d['pts_sum'] = (lambda x: 0 if x == '' else x)(points[-1])
             players.append(d)
         except:
             print(traceback.format_exc())
