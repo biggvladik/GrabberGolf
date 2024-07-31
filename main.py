@@ -33,7 +33,7 @@ class ImageDialog(QMainWindow):
         self.ui.lineEdit_6.editingFinished.connect(self.pick_url_log)
         self.ui.radioButton.clicked.connect(self.pick_gross)
         self.ui.radioButton_2.clicked.connect(self.pick_gross)
-
+        self.ui.checkBox_2.clicked.connect(self.pick_log)
         self.set_old_values()
 
 
@@ -99,6 +99,25 @@ class ImageDialog(QMainWindow):
             print(traceback.format_exc())
             return
 
+    def pick_log(self):
+        try:
+            if self.ui.checkBox_2.isChecked():
+                flag = 'True'
+            else:
+                flag = 'False'
+            config = configparser.ConfigParser()
+            config.read('grabber_golf_settings.ini')
+            config.set('API', 'log', flag)
+            with open('grabber_golf_settings.ini', 'w') as configfile:
+                config.write(configfile)
+        except:
+            print(traceback.format_exc())
+            return
+
+
+
+
+
 
     def launch_thread_prematch(self):
         if not self.thread_prematch.isRunning():
@@ -115,6 +134,8 @@ class ImageDialog(QMainWindow):
             url_log = config['API']['url_log']
             gross = (lambda x: self.ui.radioButton if x == 'False' else self.ui.radioButton_2)(config['API']['gross'])
             road_database = config['DATABASE']['road']
+            log = (lambda x: True if x == 'True' else False)(config['API']['log'])
+            print(log)
         except:
             print(traceback.format_exc())
             return
@@ -123,7 +144,7 @@ class ImageDialog(QMainWindow):
             self.ui.lineEdit_3.setText(road_database)
             self.ui.lineEdit_4.setText(url_export)
             self.ui.lineEdit_6.setText(url_log)
-
+            self.ui.checkBox_2.setChecked(log)
         except:
             print(traceback.format_exc())
 
