@@ -44,7 +44,7 @@ class ThreadLive(QThread):
             try:
                 data.update_score_players(temp_res[1])
             except:
-                self.signal_status.emit((self.mainwindow.ui.pushButton_6, 'Error', 'SP'))
+                self.signal_status.emit((self.mainwindow.ui.pushButton_6, 'Error', 'Update'))
                 print(traceback.format_exc())
 
             if self.mainwindow.ui.radioButton.isChecked() and self.mainwindow.ui.checkBox_2.isChecked():
@@ -66,15 +66,18 @@ class ThreadLive(QThread):
 
             # Обновляем стату в ZaezdMaps
             if self.mainwindow.ui.checkBox.isChecked() and not self.mainwindow.ui.checkBox_2.isChecked():
-                data_score = get_stat_log(url_log,self.mainwindow.ui.comboBox.currentText())
                 try:
+                    data_score = get_stat_log(url_log, self.mainwindow.ui.comboBox.currentText())
                     data.update_score_logs(data_score)
                     print('Работаем с логом')
                 except:
-                    self.signal_status.emit((self.mainwindow.ui.pushButton_6, 'Error', 'ZM'))
+                    self.signal_status.emit((self.mainwindow.ui.pushButton_6, 'Error', 'log'))
+                  #  continue
                     print(traceback.format_exc())
-
-            self.signal_player.emit(temp_res[1])
+            try:
+                self.signal_player.emit(temp_res[1])
+            except:
+                pass
 
             try:
                 time.sleep(float(self.mainwindow.ui.lineEdit_5.text()))
