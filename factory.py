@@ -106,6 +106,10 @@ def get_stat_gross(url:str):
     return par,players
 
 
+def convert_point(point):
+    if point == '' or point == ' ':
+        return 0
+    return point
 
 #print(get_stat_gross('https://agr.livescoring.ru/champ32/export.txt'))
 

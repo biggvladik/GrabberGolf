@@ -1,6 +1,6 @@
 import pyodbc
 from time import sleep
-
+from factory import convert_point
 class Data:
     def __init__(self, road):
         self.static_road = 'Driver={Microsoft Access Driver (*.mdb, *.accdb)};DBQ=' + road
@@ -125,7 +125,7 @@ class Data:
               """ + s + """  WHERE PlayerID_EXT = ?"""
         for player in players:
             columns = tuple(
-                [player[f'point_{count}'] for count in range(1, 19)] + [player['pts'], player['pts'], player['pts_sum'],
+                [convert_point(player[f'point_{count}']) for count in range(1, 19)] + [player['pts'], player['pts'], player['pts_sum'],
                                                                         player['player_id_ext']])
             cursor.execute(sql, columns)
             cursor.commit()
@@ -216,7 +216,7 @@ class Data:
             sql_update = """
                             UPDATE ZaezdMaps SET ZaezdPlayerTimeInt = ?, ZaezdPF = ? WHERE ZaezdID = ? AND ZaezdPlayerID = ?
                          """
-            cursor.execute(sql_update, event['point'], event['status'], zaezd_keys[f"zaezd{event['number_hole']}"],
+            cursor.execute(sql_update, convert_point(event['point']), event['status'], zaezd_keys[f"zaezd{event['number_hole']}"],
                            player_id)
             cursor.commit()
 
