@@ -185,7 +185,7 @@ class Data:
         cursor = self.conn.cursor()
         zaezd_keys = {f'zaezd{count}': self.select_zaezd_id_by_number(count) for count in range(1, 19)}
         sql_update_zaezdmaps = """
-                                 UPDATE ZaezdMaps SET ZaezdPlayerPoints = ?, ZaezdPF = ?  WHERE ZaezdID = ? AND ZaezdPlayerID = ?
+                                 UPDATE ZaezdMaps SET  ZaezdPlayerTimeInt = ?, ZaezdPF = ?  WHERE ZaezdID = ? AND ZaezdPlayerID = ?
                               """
         for player in players:
             player_id = self.select_player_id_by_ext(player['player_id_ext'])
@@ -198,9 +198,9 @@ class Data:
                 zaezd_id = zaezd_keys[f'zaezd{count}']
                 cursor.execute(sql_update_zaezdmaps,
                                (player[f'point_{count}'], pf, zaezd_id, player_id))
-              #  sleep(0.0001)
+                sleep(0.01)
             cursor.commit()
-            sleep(0.08)
+            sleep(0.2)
 
         cursor.close()
 

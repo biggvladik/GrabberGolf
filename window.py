@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Football(object):
     def setupUi(self, Football):
         Football.setObjectName("Football")
-        Football.resize(1018, 811)
+        Football.resize(1080, 811)
         Football.setAutoFillBackground(True)
         self.centralwidget = QtWidgets.QWidget(Football)
         self.centralwidget.setObjectName("centralwidget")
@@ -187,7 +187,7 @@ class Ui_Football(object):
         self.pushButton_7.setText("")
         self.pushButton_7.setObjectName("pushButton_7")
         self.tableWidget_3 = QtWidgets.QTableWidget(self.centralwidget)
-        self.tableWidget_3.setGeometry(QtCore.QRect(30, 180, 921, 611))
+        self.tableWidget_3.setGeometry(QtCore.QRect(30, 180, 1001, 611))
         self.tableWidget_3.setStyleSheet("QTableWidget {\n"
 "                background-color: rgb(187, 255, 216);\n"
 "                border: 1px solid black;\n"
@@ -201,7 +201,7 @@ class Ui_Football(object):
         self.tableWidget_3.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
         self.tableWidget_3.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.tableWidget_3.setObjectName("tableWidget_3")
-        self.tableWidget_3.setColumnCount(20)
+        self.tableWidget_3.setColumnCount(22)
         self.tableWidget_3.setRowCount(0)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget_3.setHorizontalHeaderItem(0, item)
@@ -243,6 +243,10 @@ class Ui_Football(object):
         self.tableWidget_3.setHorizontalHeaderItem(18, item)
         item = QtWidgets.QTableWidgetItem()
         self.tableWidget_3.setHorizontalHeaderItem(19, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_3.setHorizontalHeaderItem(20, item)
+        item = QtWidgets.QTableWidgetItem()
+        self.tableWidget_3.setHorizontalHeaderItem(21, item)
         self.tableWidget_3.horizontalHeader().setVisible(True)
         self.tableWidget_3.horizontalHeader().setCascadingSectionResizes(False)
         self.tableWidget_3.horizontalHeader().setHighlightSections(True)
@@ -428,6 +432,10 @@ class Ui_Football(object):
         item.setText(_translate("Football", "17"))
         item = self.tableWidget_3.horizontalHeaderItem(19)
         item.setText(_translate("Football", "18"))
+        item = self.tableWidget_3.horizontalHeaderItem(20)
+        item.setText(_translate("Football", "PTS"))
+        item = self.tableWidget_3.horizontalHeaderItem(21)
+        item.setText(_translate("Football", "TOTAL"))
         self.pushButton_8.setText(_translate("Football", "Stop"))
         self.label_3.setText(_translate("Football", "TimeOut,s"))
         self.lineEdit_5.setText(_translate("Football", "1"))

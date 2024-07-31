@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1018</width>
+    <width>1080</width>
     <height>811</height>
    </rect>
   </property>
@@ -331,7 +331,7 @@ QPushButton#pushButton_5:hover {
      <rect>
       <x>30</x>
       <y>180</y>
-      <width>921</width>
+      <width>1001</width>
       <height>611</height>
      </rect>
     </property>
@@ -481,6 +481,16 @@ QHeaderView::section {
     <column>
      <property name="text">
       <string>18</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>PTS</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>TOTAL</string>
      </property>
     </column>
    </widget>

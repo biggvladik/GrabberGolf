@@ -263,7 +263,7 @@ class ImageDialog(QMainWindow):
                 font.setWeight(QFont.Bold)
                 self.ui.tableWidget_3.item(row_count, 1).setFont(font)
 
-                for i in range(2, 20):
+                for i in range(2, 22):
                     self.ui.tableWidget_3.setItem(row_count, i, QTableWidgetItem(''))
             except:
                 print(traceback.format_exc())
@@ -274,9 +274,13 @@ class ImageDialog(QMainWindow):
             for player in players:
                 for row in range(self.ui.tableWidget_3.rowCount()):
                     if self.ui.tableWidget_3.item(row, 0).text() == player['player_id_ext']:
-                        for i in range(1, 19):
+                        for i in range(1, 21):
                             player_str = str(player.get(f'shot_{i}','?')) + '/' + str(player.get(f'point_{i}','0'))
                             player_str = player_str.replace('?/','')
+                            if i == 19:
+                                player_str = str(player['pts'])
+                            elif i == 20:
+                                player_str = str(player['pts_sum'])
                             if self.ui.tableWidget_3.item(row,i+1).text() != player_str:
                                 self.ui.tableWidget_3.setItem(row, i + 1, QTableWidgetItem(
                                     player_str))
@@ -286,7 +290,6 @@ class ImageDialog(QMainWindow):
                                 self.ui.tableWidget_3.setItem(row, i + 1, QTableWidgetItem(
                                     player_str))
                                 self.ui.tableWidget_3.item(row, i + 1).setTextAlignment(Qt.AlignCenter)
-
 
                         break
         except:

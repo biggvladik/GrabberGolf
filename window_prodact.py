@@ -9,7 +9,7 @@ class UiGolf(Ui_Football):
 
         self.tableWidget_3.setColumnWidth(0, 40)
         self.tableWidget_3.setColumnWidth(1, 150)
-        for i in range(2, 20, 1):
+        for i in range(2, 22, 1):
             self.tableWidget_3.setColumnWidth(i, 40)
 
         self.tableWidget_3.verticalHeader().setDefaultSectionSize(5)
