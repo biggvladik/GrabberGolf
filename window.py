@@ -289,6 +289,7 @@ class Ui_Football(object):
         self.horizontalLayout_3.addWidget(self.label_3)
         self.lineEdit_5 = QtWidgets.QLineEdit(self.layoutWidget_2)
         self.lineEdit_5.setStyleSheet("border : 2px solid black;")
+        self.lineEdit_5.setAlignment(QtCore.Qt.AlignCenter)
         self.lineEdit_5.setObjectName("lineEdit_5")
         self.horizontalLayout_3.addWidget(self.lineEdit_5)
         self.layoutWidget_3 = QtWidgets.QWidget(self.centralwidget)
@@ -374,6 +375,10 @@ class Ui_Football(object):
         self.checkBox_2.setGeometry(QtCore.QRect(490, 130, 151, 17))
         self.checkBox_2.setStyleSheet("font: bold 14px;")
         self.checkBox_2.setObjectName("checkBox_2")
+        self.checkBox_3 = QtWidgets.QCheckBox(self.centralwidget)
+        self.checkBox_3.setGeometry(QtCore.QRect(640, 130, 181, 17))
+        self.checkBox_3.setStyleSheet("font: bold 14px;")
+        self.checkBox_3.setObjectName("checkBox_3")
         Football.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(Football)
         self.statusbar.setObjectName("statusbar")
@@ -450,6 +455,7 @@ class Ui_Football(object):
         self.comboBox.setItemText(3, _translate("Football", "30"))
         self.comboBox.setItemText(4, _translate("Football", "50"))
         self.checkBox_2.setText(_translate("Football", "Работаем без log"))
+        self.checkBox_3.setText(_translate("Football", "Паузы на обновление"))
 
 
 if __name__ == "__main__":

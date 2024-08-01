@@ -50,7 +50,7 @@ class ThreadLive(QThread):
             if self.mainwindow.ui.radioButton.isChecked() and self.mainwindow.ui.checkBox_2.isChecked():
                print('Работаем без лога Netto')
                try:
-                    data.update_zaezdmaps_score(temp_res[1])
+                    data.update_zaezdmaps_score(temp_res[1],self.mainwindow.ui.checkBox_3.isChecked())
                except:
                 self.signal_status.emit((self.mainwindow.ui.pushButton_6, 'Error', 'Netto'))
                 print(traceback.format_exc())
@@ -58,7 +58,7 @@ class ThreadLive(QThread):
             if self.mainwindow.ui.radioButton_2.isChecked() and self.mainwindow.ui.checkBox_2.isChecked():
                 print('Работаем без лога Gross')
                 try:
-                    data.update_zaezdmaps_score_gross(temp_res[1])
+                    data.update_zaezdmaps_score_gross(temp_res[1],self.mainwindow.ui.checkBox_3.isChecked())
                 except:
                     self.signal_status.emit((self.mainwindow.ui.pushButton_6, 'Error', 'Gross'))
                     print(traceback.format_exc())

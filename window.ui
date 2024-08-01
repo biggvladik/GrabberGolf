@@ -556,6 +556,9 @@ QPushButton#pushButton_8:hover {
        <property name="text">
         <string>1</string>
        </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
       </widget>
      </item>
     </layout>
@@ -731,6 +734,22 @@ QComboBox::down-arrow:on { /* shift the arrow when popup is open */
     </property>
     <property name="text">
      <string>Работаем без log</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="checkBox_3">
+    <property name="geometry">
+     <rect>
+      <x>640</x>
+      <y>130</y>
+      <width>181</width>
+      <height>17</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: bold 14px;</string>
+    </property>
+    <property name="text">
+     <string>Паузы на обновление</string>
     </property>
    </widget>
   </widget>

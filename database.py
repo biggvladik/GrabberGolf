@@ -156,7 +156,7 @@ class Data:
     #
     #     cursor.close()
 
-    def update_zaezdmaps_score(self, players: list):
+    def update_zaezdmaps_score(self, players: list,flag_sleep:bool):
 
         cursor = self.conn.cursor()
         zaezd_keys = {f'zaezd{count}': self.select_zaezd_id_by_number(count) for count in range(1, 19)}
@@ -176,12 +176,13 @@ class Data:
                 cursor.execute(sql_update_zaezdmaps,
                                (player[f'shot_{count}'], player[f'point_{count}'],pf, zaezd_id, player_id))
             cursor.commit()
-            sleep(0.05)
+            if flag_sleep:
+                sleep(0.05)
 
         cursor.close()
 
 
-    def update_zaezdmaps_score_gross(self, players: list):
+    def update_zaezdmaps_score_gross(self, players: list,flag_sleep:bool):
         cursor = self.conn.cursor()
         zaezd_keys = {f'zaezd{count}': self.select_zaezd_id_by_number(count) for count in range(1, 19)}
         sql_update_zaezdmaps = """
@@ -199,8 +200,10 @@ class Data:
                 cursor.execute(sql_update_zaezdmaps,
                                (player[f'point_{count}'], pf, zaezd_id, player_id))
                 cursor.commit()
-                sleep(0.00002)
-            sleep(0.001)
+                if flag_sleep:
+                    sleep(0.00002)
+            if flag_sleep:
+                sleep(0.001)
 
         cursor.close()
 

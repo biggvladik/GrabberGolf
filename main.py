@@ -34,6 +34,8 @@ class ImageDialog(QMainWindow):
         self.ui.radioButton.clicked.connect(self.pick_gross)
         self.ui.radioButton_2.clicked.connect(self.pick_gross)
         self.ui.checkBox_2.clicked.connect(self.pick_log)
+        self.ui.checkBox_3.clicked.connect(self.pick_pause_commit)
+
         self.set_old_values()
 
 
@@ -82,6 +84,21 @@ class ImageDialog(QMainWindow):
         except:
             print(traceback.format_exc())
             return
+
+    def pick_pause_commit(self):
+        try:
+            pause_commit = (lambda x: 'True' if x  else 'False')(self.ui.checkBox_3.isChecked())
+            print(pause_commit)
+            config = configparser.ConfigParser()
+            config.read('grabber_golf_settings.ini')
+            config.set('API', 'pause_commit',pause_commit)
+            with open('grabber_golf_settings.ini', 'w') as configfile:
+                config.write(configfile)
+        except:
+            print(traceback.format_exc())
+            return
+
+
 
 
     def pick_gross(self):
@@ -135,6 +152,7 @@ class ImageDialog(QMainWindow):
             gross = (lambda x: self.ui.radioButton if x == 'False' else self.ui.radioButton_2)(config['API']['gross'])
             road_database = config['DATABASE']['road']
             log = (lambda x: True if x == 'True' else False)(config['API']['log'])
+            pause_commit = (lambda x: True if x == 'True' else False)(config['API']['pause_commit'])
             print(log)
         except:
             print(traceback.format_exc())
@@ -145,6 +163,8 @@ class ImageDialog(QMainWindow):
             self.ui.lineEdit_4.setText(url_export)
             self.ui.lineEdit_6.setText(url_log)
             self.ui.checkBox_2.setChecked(log)
+            self.ui.checkBox_3.setChecked(pause_commit)
+
         except:
             print(traceback.format_exc())
 
