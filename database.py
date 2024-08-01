@@ -198,9 +198,9 @@ class Data:
                 zaezd_id = zaezd_keys[f'zaezd{count}']
                 cursor.execute(sql_update_zaezdmaps,
                                (player[f'point_{count}'], pf, zaezd_id, player_id))
-                sleep(0.0002)
                 cursor.commit()
-            sleep(0.01)
+                sleep(0.00002)
+            sleep(0.001)
 
         cursor.close()
 
